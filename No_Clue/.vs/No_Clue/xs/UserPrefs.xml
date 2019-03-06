@@ -1,0 +1,15 @@
+﻿<Properties StartupConfiguration="{80339D21-AE81-E8A2-5F07-D23C64252319}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/EnvironmentGenerator.cs">
+    <Files>
+      <File FileName="Assets/Scripts/GameObjectDestroyer.cs" Line="18" Column="6" />
+      <File FileName="Assets/Scripts/EnvironmentGenerator.cs" Line="12" Column="5" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
