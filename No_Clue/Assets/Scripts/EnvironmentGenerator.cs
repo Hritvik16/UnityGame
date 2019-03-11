@@ -8,14 +8,10 @@ public class EnvironmentGenerator : MonoBehaviour
 
     public GameObject[] objects;
     private List<GameObject> objectList = new List<GameObject>();
-    public GameObject gameObjectDestroyer;
-    private GameObjectDestroyer gameObjectDestroyerObject;
 
     // Start is called before the first frame update
     void Start()
     {
-
-        gameObjectDestroyerObject = gameObjectDestroyer.GetComponent<GameObjectDestroyer>();
         //GenerateNTressinArea(15, -7, -10, -1.8f, -5);
         GenerateNObjects(70);
         for (int x = 0; x < objectList.Count; x++)
@@ -37,31 +33,50 @@ public class EnvironmentGenerator : MonoBehaviour
                 }
             }
         }
-        for(int i = 0; i < objectList.Count; i++)
-        {
-            Physics.IgnoreCollision(objectList[i].GetComponent<Collider>(), terrain.GetComponent<MeshCollider>());
-            objectList[i].GetComponent<Collider>().enabled = true;
-        }
     }
+
     void GenerateNObjects(int n)
     {
+        Vector3 cameraPosition = this.transform.position;
         Quaternion rotation = new Quaternion(0, 0, 0, 0);
         for (int i = 0; i < n; i++)
         {
             Vector3 position = new Vector3(Random.Range(-10, 10), 0, Random.Range(-10, 10));
-            objectList.Add(Instantiate(objects[Random.Range(0, objects.Length)], position, rotation));
+
+            if (!(cameraPosition.x <= (position.x + 0.5) && cameraPosition.x >= (position.x - 0.5)
+             && cameraPosition.y <= (position.y + 0.5) && cameraPosition.y >= (position.y - 0.5)))
+            {
+                objectList.Add(Instantiate(objects[Random.Range(0, objects.Length)], position, rotation));
+            }
 
         }
     }
-
     // Update is called once per frame
     void Update()
     {
-
-        int y = gameObjectDestroyerObject.getCount();
-        if (y >= 10 && objectList.Count < 200)
+        if (objectList.Count < 100)
         {
-            GenerateNObjects(20);
+            GenerateNObjects(100);
+        }
+        StartCoroutine(waiter());
+    }
+
+    public List<GameObject> getObjectList()
+    {
+        return objectList;
+    }
+
+    IEnumerator waiter()
+    {
+        yield return new WaitForSeconds(10);
+        for (int i = 0; i < objectList.Count; i++)
+        {
+            Physics.IgnoreCollision(objectList[i].GetComponent<Collider>(), terrain.GetComponent<MeshCollider>());
+            objectList[i].GetComponent<Collider>().enabled = true;
+            if (objectList[i].transform.position.y == 0.0f)
+            {
+                objectList[i].GetComponent<Rigidbody>().isKinematic = true;
+            }
         }
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameObjectDestroyer : MonoBehaviour
 {
-    static int counter = 0;
+    public GameObject camera;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,12 +18,7 @@ public class GameObjectDestroyer : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
+        camera.GetComponent<EnvironmentGenerator>().getObjectList().Remove(collision.gameObject);
         Destroy(collision.gameObject);
-        counter++;
-    }
-
-    public int getCount()
-    {
-        return counter;
     }
 }
