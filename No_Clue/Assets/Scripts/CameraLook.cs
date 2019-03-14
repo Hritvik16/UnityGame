@@ -14,6 +14,9 @@ public class CameraLook : MonoBehaviour
     public float maximumX = 360F;
     public float minimumY = -60F;
     public float maximumY = 60F;
+
+    public float yOffset = 1f;
+
     float rotationX = 0F;
     float rotationY = 0F;
     private List<float> rotArrayX = new List<float>();
@@ -74,6 +77,7 @@ public class CameraLook : MonoBehaviour
             //this.transform.parent.transform.rotation = originalRotation * xQuaternion;
             transform.GetComponentInParent<PlayerMovementScript>().rotate(originalRotation * xQuaternion);
             transform.rotation = originalRotation * xQuaternion * yQuaternion;
+
         }
         else if (axes == RotationAxes.MouseX)
         {
@@ -113,6 +117,12 @@ public class CameraLook : MonoBehaviour
             Quaternion yQuaternion = Quaternion.AngleAxis(rotAverageY, Vector3.left);
             transform.localRotation = originalRotation * yQuaternion;
         }
+    }
+
+    private void LateUpdate()
+    {
+        Vector3 parentPosition = transform.parent.transform.position;
+        transform.LookAt(new Vector3(parentPosition.x, parentPosition.y + yOffset, parentPosition.z));
     }
     void Start()
     {

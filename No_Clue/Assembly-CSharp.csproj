@@ -64,6 +64,7 @@
     <Compile Include="Assets\Scripts\EnvironmentGenerator.cs" />
     <Compile Include="Assets\Scripts\GameObjectDestroyer.cs" />
     <Compile Include="Assets\Scripts\PlayerMovementScript.cs" />
+    <None Include="Assets\Rhino\Sheder\StandardDoubleSided.shader" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>/Users/Hritvik/Desktop/UNITY-PROJECTS/No_Clue/No_Clue/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>

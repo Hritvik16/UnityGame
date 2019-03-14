@@ -15,10 +15,14 @@ public class PlayerMovementScript : MonoBehaviour
     private bool isGrounded = true;
     private Transform groundChecker;
 
+    private string[] attackAnimations = { "attack1" };
+    private Animator anim;
+
     void Start()
     {
         body = GetComponent<Rigidbody>();
-        groundChecker = transform.GetChild(2);
+        groundChecker = transform.GetChild(6);
+        anim = this.GetComponent<Animator>();
     }
 
     void Update()
@@ -33,20 +37,24 @@ public class PlayerMovementScript : MonoBehaviour
             //transform.forward = inputs;
             transform.Translate(Vector3.forward * Time.deltaTime * Input.GetAxis("Vertical") * speed);
             transform.Translate(Vector3.right * Time.deltaTime * Input.GetAxis("Horizontal") * speed);
-
+            anim.SetBool("isRunning", true);
+        }
+        else
+        {
+            anim.SetBool("isRunning", false);
         }
 
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             body.AddForce(Vector3.up * Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y), ForceMode.VelocityChange);
         }
+        if(Input.GetMouseButtonDown(0))
+        {
+            string attack = attackAnimations[Random.Range(0, attackAnimations.Length)];
+            anim.SetTrigger(attack);
+        }
     }
 
-
-    void FixedUpdate()
-    {
-        //body.MovePosition(body.position + inputs * speed * Time.fixedDeltaTime);
-    }
     public void rotate(Quaternion rotation)
     {
         transform.rotation = rotation;
