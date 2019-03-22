@@ -15,7 +15,7 @@ public class PlayerMovementScript : MonoBehaviour
     private bool isGrounded = true;
     private Transform groundChecker;
 
-    private string[] attackAnimations = { "attack1" };
+    private string[] attackAnimations = { "attack1", "attack2" };
     private Animator anim;
 
     void Start()
